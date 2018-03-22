@@ -60,7 +60,7 @@ CONSTRAINT Media_PK PRIMARY KEY (Media_Id)
 CREATE TABLE STUDYROOM_t
 (
 	study_Room_Id	VARCHAR(5),
-	Student_Id 		VARCHAR(9),
+	Student_Id 		VARCHAR(20),
 	timeRequested		TIME(),
 CONSTRAINT Study_Room_PK PRIMARY KEY (study_Room_Id),
 CONSTRAINT Study_Room_FK1 FOREIGN KEY (Student_Id) REFERENCES STUDENT_t(Student_Id)
@@ -157,3 +157,54 @@ INSERT INTO TRANSACTION_t
 VALUES('7rtg3kqqeq', 'Rogue One', 'W00456321', '2018-03-12', '2018-03-24');
 INSERT INTO TRANSACTION_t
 VALUES('nz3uz3kicb', 'Cracking the Coding Interview', 'W00124567', '2018-05-7', '2018-05-22');
+
+/*
+From here under is the many to many tables that need to be started...
+
+
+bookid/Transaction_ID
+transaction/MEDIA_t
+transaction/STUDENT_t
+staff/TRANSACTION_t
+staff/study_Room_Id
+
+*chris will do bottom four*
+staff/evemt
+staff/MEDIA_t
+staff/student
+*/
+
+CREATE TABLE bookTransaction (
+  Book_ID			VARCHAR(50),
+  Transaction_ID VARCHAR(20);
+CONSTRAINT bookTransaction_PK PRIMARY KEY (Book_Id);
+CONSTRAINT bookTransaction_PK PRIMARY KEY (Transaction_ID);
+);
+
+CREATE TABLE transactionMedia (
+  Media_Id			VARCHAR(20),
+  Transaction_ID VARCHAR(20);
+CONSTRAINT transactionMedia_PK PRIMARY KEY (Media_Id);
+CONSTRAINT transactionMedia_PK PRIMARY KEY (Transaction_ID);
+);
+
+CREATE TABLE studentTransaction (
+  Student_Id VARCHAR(20),
+  Transaction_ID VARCHAR(20);
+CONSTRAINT studentTransaction_PK PRIMARY KEY (Student_Id);
+CONSTRAINT studentTransaction_PK PRIMARY KEY (Transaction_ID);
+);
+
+CREATE TABLE staffTransaction (
+  Staff_Id			VARCHAR(20),
+  Transaction_ID VARCHAR(20);
+CONSTRAINT bookTransaction_PK PRIMARY KEY (Staff_Id);
+CONSTRAINT bookTransaction_PK PRIMARY KEY (Transaction_ID);
+);
+
+CREATE TABLE staffStudyRoom (
+  Staff_Id			VARCHAR(20),
+  study_Room_Id VARCHAR(20);
+CONSTRAINT staffStudyRoom_PK PRIMARY KEY (Staff_Id);
+CONSTRAINT staffStudyRoom_PK PRIMARY KEY (study_Room_Id);
+);
